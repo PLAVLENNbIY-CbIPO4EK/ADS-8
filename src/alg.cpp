@@ -7,6 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <utility>
+
 #include "bst.h"
 
 void makeTree(BST<std::string>& tree, const char* filename) {
@@ -16,6 +17,7 @@ void makeTree(BST<std::string>& tree, const char* filename) {
         std::cout << "File error!" << std::endl;
         return;
     }
+
     std::string buf = "";
 
     while (!file.eof()) {
