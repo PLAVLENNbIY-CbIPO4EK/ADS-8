@@ -99,7 +99,7 @@ class BST {
         return tmp->count;
     }
 
-    void toVector(std::vector<Node*> *arr) {
+    void getWords(std::vector<Node*> *arr) {
         makeVec(root, arr);
     }
 };
