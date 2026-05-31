@@ -89,7 +89,7 @@ class BST {
     }
 
     int depth() {
-        return dep(root);
+        return dep(root) - 1;
     }
 
     int search(T x) {
