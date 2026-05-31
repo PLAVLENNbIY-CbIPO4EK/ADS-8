@@ -66,10 +66,17 @@ class BST {
         return find(cur->right, val);
     }
 
-    void makeVec(Node *cur, std::vector<Node*> *arr) {
+    void makeVec(Node *cur, std::vector<std::pair<T, int>> *arr) {
         if (cur == nullptr) {
             return;
         }
+    
+        makeVec(cur->left, arr);
+    
+        arr->push_back(std::make_pair(cur->data, cur->count));
+    
+        makeVec(cur->right, arr);
+    }
 
         makeVec(cur->left, arr);
         arr->push_back(cur);
