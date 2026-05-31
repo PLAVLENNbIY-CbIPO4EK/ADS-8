@@ -1,28 +1,17 @@
-#include <cctype>
-#include <string>
-#include <fstream>
+// Copyright 2021 NNTU-CS
+#include "bst.h"
 
-void makeTree(BST<std::string>& tree, const char* filename) {
-    std::ifstream file(filename);
-    if (!file) {
-        std::cout << "File error!" << std::endl;
-        return;
-    }
+void makeTree(BST<std::string>& tree,
+              const char* filename);
 
-    std::string word;
-    char ch;
+void printFreq(BST<std::string>& tree);
 
-    while (file.get(ch)) {
-        if (std::isalpha(static_cast<unsigned char>(ch))) {
-            word += std::tolower(static_cast<unsigned char>(ch));
-        } else if (!word.empty()) {
-            tree.insert(word);
-            word.clear();
-        }
-    }
-    if (!word.empty()) {
-        tree.insert(word);
-    }
+int main() {
+    BST<std::string> tree;
 
-    file.close();
+    makeTree(tree, "src/war_peace.txt");
+
+    printFreq(tree);
+
+    return 0;
 }
