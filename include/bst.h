@@ -106,7 +106,7 @@ class BST {
         return tmp->count;
     }
 
-    void getWords(std::vector<Node*> *arr) {
+    void getWords(std::vector<std::pair<T, int>> *arr) {
         makeVec(root, arr);
     }
 };
