@@ -2,8 +2,8 @@
 #ifndef INCLUDE_BST_H_
 #define INCLUDE_BST_H_
 
-#include <vector>
 #include <utility>
+#include <vector>
 
 template <class T>
 class BST {
@@ -17,71 +17,66 @@ class BST {
 
     Node *root;
 
-    void addNode(Node *&cur, T val) {
-        if (cur == nullptr) {
-            cur = new Node;
-            cur->data = val;
-            cur->count = 1;
-            cur->left = nullptr;
-            cur->right = nullptr;
+    void add(Node *&p, T x) {
+        if (p == nullptr) {
+            p = new Node;
+            p->data = x;
+            p->count = 1;
+            p->left = nullptr;
+            p->right = nullptr;
             return;
         }
 
-        if (val < cur->data) {
-            addNode(cur->left, val);
-        } else if (val > cur->data) {
-            addNode(cur->right, val);
+        if (x < p->data) {
+            add(p->left, x);
+        } else if (x > p->data) {
+            add(p->right, x);
         } else {
-            cur->count++;
+            p->count++;
         }
     }
 
-    int getDepth(Node *cur) {
-        if (cur == nullptr) {
+    int dep(Node *p) {
+        if (p == nullptr) {
             return 0;
         }
 
-        int l = getDepth(cur->left);
-        int r = getDepth(cur->right);
+        int a = dep(p->left);
+        int b = dep(p->right);
 
-        if (l > r) {
-            return l + 1;
+        if (a > b) {
+            return a + 1;
         }
 
-        return r + 1;
+        return b + 1;
     }
 
-    Node* find(Node *cur, T val) {
-        if (cur == nullptr) {
+    Node* find(Node *p, T x) {
+        if (p == nullptr) {
             return nullptr;
         }
 
-        if (cur->data == val) {
-            return cur;
+        if (p->data == x) {
+            return p;
         }
 
-        if (val < cur->data) {
-            return find(cur->left, val);
+        if (x < p->data) {
+            return find(p->left, x);
         }
 
-        return find(cur->right, val);
+        return find(p->right, x);
     }
 
-    void makeVec(Node *cur, std::vector<std::pair<T, int>> *arr) {
-        if (cur == nullptr) {
+    void makeVec(Node *p, std::vector<std::pair<T, int>> *v) {
+        if (p == nullptr) {
             return;
         }
-    
-        makeVec(cur->left, arr);
-    
-        arr->push_back(std::make_pair(cur->data, cur->count));
-    
-        makeVec(cur->right, arr);
-    }
 
-        makeVec(cur->left, arr);
-        arr->push_back(cur);
-        makeVec(cur->right, arr);
+        makeVec(p->left, v);
+
+        v->push_back(std::make_pair(p->data, p->count));
+
+        makeVec(p->right, v);
     }
 
  public:
@@ -89,26 +84,26 @@ class BST {
         root = nullptr;
     }
 
-    void insert(T val) {
-        addNode(root, val);
+    void insert(T x) {
+        add(root, x);
     }
 
     int depth() {
-        return getDepth(root);
+        return dep(root);
     }
 
-    int search(T val) {
-        Node *tmp = find(root, val);
+    int search(T x) {
+        Node *p = find(root, x);
 
-        if (tmp == nullptr) {
+        if (p == nullptr) {
             return 0;
         }
 
-        return tmp->count;
+        return p->count;
     }
 
-    void getWords(std::vector<std::pair<T, int>> *arr) {
-        makeVec(root, arr);
+    void getWords(std::vector<std::pair<T, int>> *v) {
+        makeVec(root, v);
     }
 };
 
